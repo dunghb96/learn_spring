@@ -47,8 +47,8 @@ public class UserController extends BaseController {
      }
 
      @DeleteMapping("/{id}")
-     public ResponseEntity<String> deleteUser(@PathVariable("id") Long id) {
+     public ApiResponse<String> deleteUser(@PathVariable("id") Long id) {
           userService.delete(id);
-          return new ResponseEntity<> ("Xóa user thành công", HttpStatus.OK);
+          return responseSuccessData("Xóa user thành công");
      }
 }
