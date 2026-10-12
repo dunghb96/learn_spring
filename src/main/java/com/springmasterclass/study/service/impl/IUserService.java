@@ -27,6 +27,10 @@ public class IUserService implements UserService {
 
      @Override
      public void create(UserRequest rq) {
+          if (userRepo.existsByEmail(rq.email())) {
+               throw new IllegalArgumentException("email đã tồn tại");
+          }
+
           userRepo.save(mapToEntity(rq));
      }
 
@@ -36,6 +40,12 @@ public class IUserService implements UserService {
 
           if (user.isEmpty()) {
               throw new IllegalArgumentException("user not found");
+          }
+
+          // email đã tồn tại NHƯNG thuộc user khác mới tính là trùng
+          // (id = user đang sửa nên bỏ qua)
+          if (userRepo.existsByEmailAndIdNot(rq.email(), id)) {
+               throw new IllegalArgumentException("email đã tồn tại");
           }
 
           User userUpdate = user.get();

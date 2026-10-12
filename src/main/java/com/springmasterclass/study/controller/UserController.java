@@ -12,34 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springmasterclass.study.common.ApiResponse;
+import com.springmasterclass.study.common.BaseController;
 import com.springmasterclass.study.dto.record.UserRequest;
 import com.springmasterclass.study.dto.record.UserResponse;
 
 import com.springmasterclass.study.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/users")
-public class UserController {
+public class UserController extends BaseController {
      private final UserService userService;
 
      @GetMapping("")
-     public ResponseEntity<List<UserResponse>> listUser() {
-         return new ResponseEntity<>(userService.index(), HttpStatus.OK);
+     public ApiResponse<List<UserResponse>> listUser() {
+     //     return new ResponseEntity<>(userService.index(), HttpStatus.OK);
+          return responseSuccessData(userService.index());
      }
 
      @PostMapping("")
-     public ResponseEntity<String> createUser(@RequestBody UserRequest rq) {
+     public ApiResponse<String> createUser(@Valid @RequestBody UserRequest rq) {
           userService.create(rq);
-          return new ResponseEntity<> ("tạo user thành công", HttpStatus.CREATED);
+          return responseSuccessData("Tạo user thành công");
      }
 
      @PostMapping("/{id}")
-     public ResponseEntity<String> updateUser(@PathVariable("id") Long id, @RequestBody UserRequest rq) {
+     public ApiResponse<String> updateUser(@PathVariable("id") Long id, @RequestBody UserRequest rq) {
           userService.update(id, rq);
-          return new ResponseEntity<> ("Sửa user thành công", HttpStatus.OK);
+          return responseSuccessData("Sửa user thành công");
      }
 
      @DeleteMapping("/{id}")

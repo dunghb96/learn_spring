@@ -8,4 +8,8 @@ import com.springmasterclass.study.entity.User;
 public interface UserReposetory extends JpaRepository<User, Long> {
 
      void deleteById(Long id);
+
+     boolean existsByEmail(String email);
+
+     boolean existsByEmailAndIdNot(String email, Long id);
 }
