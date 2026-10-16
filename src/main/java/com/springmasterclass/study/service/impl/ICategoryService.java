@@ -55,7 +55,7 @@ public class ICategoryService implements CategoryService{
           : List.of();
 
           // xóa các product mà ko còn nằm trong dto hay request mới nữa
-          category.getProducts().removeIf(product -> newProductIds.contains(product.getId()));
+          category.getProducts().removeIf(product -> !newProductIds.contains(product.getId()));
 
           if (Objects.nonNull(rq.products())) {
                for (ProductRequest pDto : rq.products()) {

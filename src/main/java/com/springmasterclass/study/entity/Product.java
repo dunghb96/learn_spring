@@ -2,7 +2,7 @@ package com.springmasterclass.study.entity;
 
 import java.math.BigDecimal;
 
-import org.modelmapper.internal.bytebuddy.build.HashCodeAndEqualsPlugin.Identity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,5 +34,6 @@ public class Product {
 
      @ManyToOne(fetch = FetchType.LAZY)
      @JoinColumn(name = "category_id")
+     @JsonIgnore // cắt vòng lặp khi serialize JSON: Product không lặp lại Category
      private Category category;
 }

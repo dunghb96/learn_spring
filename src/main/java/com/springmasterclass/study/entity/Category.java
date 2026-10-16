@@ -29,7 +29,7 @@ public class Category {
      private String name;
 
      @OneToMany(mappedBy = "category", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-
+     @Builder.Default
      private List<Product> products = new ArrayList<>();
 
      // hepler method

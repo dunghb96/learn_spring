@@ -7,6 +7,19 @@ spring.datasource.password=changeme
 
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-spring.jpa.hibernate.ddl-auto=update
+spring.jpa.hibernate.ddl-auto=validate
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.default_batch_fetch_size=100
+
+# Bật/tắt flyway (true là cho phép chạy migration khi start app)
+spring.flyway.enabled=true
+
+# Cơ chế baseline
+# false (mặc định): sẽ báo lỗi nếu DB đã có data mà chưa có bảng lịch sử flyway
+# true: sẽ tự tạo bảng lịch sử và coi DB hiện tại là phiên bản gốc nếu gặp DB cũ
+spring.flyway.baseline-on-migrate=false
+
+# Đường dẫn tới thư mục chứa các file sql migration
+# Các file thường đặt trong: src/main/resources/db/migration
+spring.flyway.locations=classpath:db/migration
+
